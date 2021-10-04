@@ -30,7 +30,7 @@ Suppose we want to insert the new value `9`:
 
 Here is the tree after inserting the new value `9`:
 
-![After adding 9](Images/Tree2.png)
+![After adding 9](https://github.com/raywenderlich/swift-algorithm-club/blob/master/Binary%20Search%20Tree/Images/Tree1.png)
 
 There is only one possible place where the new element can be inserted in the tree. Finding this place is usually quick. It takes **O(h)** time, where **h** is the height of the tree.
 
@@ -50,7 +50,7 @@ Like most tree operations, this is performed recursively until either we find wh
 
 Here is an example for searching the value `5`:
 
-![Searching the tree](Images/Searching.png)
+![Searching the tree](https://github.com/raywenderlich/swift-algorithm-club/blob/master/Binary%20Search%20Tree/Images/Searching.png)
 
 Searching is fast using the structure of the tree. It runs in **O(h)** time. If you have a well-balanced tree with a million nodes, it only takes about 20 steps to find anything in this tree. (The idea is very similar to [binary search](../Binary%20Search) in an array.)
 
