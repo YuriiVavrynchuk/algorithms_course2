@@ -1,5 +1,6 @@
 import unittest
 import HeapSort
+import BinarySearchTree
 
 
 class TestHeapSort(unittest.TestCase):
