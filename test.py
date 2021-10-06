@@ -1,6 +1,6 @@
 import unittest
 import HeapSort
-import BinarySearchTree
+from BinarySearchTree import *
 
 
 class TestHeapSort(unittest.TestCase):
@@ -35,6 +35,21 @@ class TestHeapSort(unittest.TestCase):
         HeapSort.args.sorting_array = self.desc_sorted_array
         HeapSort.args.order = "desc"
         self.assertEqual(HeapSort.main(), self.desc_sorted_array)
+
+    def test_binary_tree_inserting(self):
+        binary_search_tree = BinarySearchTree(Node(2))
+        binary_search_tree.insert(binary_search_tree.root, 1)
+        binary_search_tree.insert(binary_search_tree.root, 6)
+        self.assertEqual(binary_search_tree.root.right.data, 6)
+        self.assertEqual(binary_search_tree.root.left.data, 1)
+
+    def test_binary_tree_deleting(self):
+        binary_search_tree = BinarySearchTree(Node(2))
+        binary_search_tree.insert(binary_search_tree.root, 1)
+        binary_search_tree.insert(binary_search_tree.root, 6)
+        binary_search_tree.insert(binary_search_tree.root, 7)
+        binary_search_tree.delete_node(binary_search_tree.root, 6)
+        self.assertEqual(binary_search_tree.root.right.data, 7)
 
 
 if __name__ == "__main__":
