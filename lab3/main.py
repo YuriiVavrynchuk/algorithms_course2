@@ -21,23 +21,31 @@ def get_feed_reducing(hamsters_array, hamster_index_to_remove):
     return feed_reducing
 
 
-def get_sum(hamsters_array):
-    return sum([hamster.consumption + hamster.avidity * (len(hamsters_array) - 1) for hamster in hamsters_array])
+def get_total_consumption(hamsters_array, amount_of_hamsters):
+    total_consumption_array = [hamster.get_hamster_total_consumption(amount_of_hamsters) for hamster in hamsters_array]
+    total_consumption_array.sort()
+    return sum(total_consumption_array[:amount_of_hamsters])
 
 
-def buy_hamsters(amount_of_feed, hamsters_array):
-    if get_sum(hamsters_array) <= amount_of_feed:
-        return len(hamsters_array)
+def buy_hamsters(amount_of_feed, amount_of_hamsters, hamsters_array):
+    left_searching_edge = -1
+    right_searching_edge = amount_of_hamsters
+    while right_searching_edge > left_searching_edge + 1:
+        searching_middle = (right_searching_edge + left_searching_edge) // 2
+        if get_total_consumption(hamsters_array, searching_middle) > amount_of_feed:
+            right_searching_edge = searching_middle
+        else:
+            left_searching_edge = searching_middle
+    if left_searching_edge != -1:
+        return right_searching_edge if get_total_consumption(hamsters_array, right_searching_edge) <= amount_of_feed \
+            else left_searching_edge
     else:
-        feed_reducing_array = [get_feed_reducing(hamsters_array, i) for i in range(len(hamsters_array))]
-        index_max = max(range(len(feed_reducing_array)), key=feed_reducing_array.__getitem__)
-        del hamsters_array[index_max]
-        return buy_hamsters(amount_of_feed, hamsters_array)
+        return 0
 
 
 def main(hamster_data_file_path: str):
     amount_of_feed, amount_of_hamsters, hamster_array = parse_hamster_file(hamster_data_file_path)
-    number_of_bought_hamsters = buy_hamsters(amount_of_feed, hamster_array)
+    number_of_bought_hamsters = buy_hamsters(amount_of_feed, amount_of_hamsters, hamster_array)
     with open("hamsters_out.txt", "w") as hamsters_out_file:
         hamsters_out_file.write(str(number_of_bought_hamsters))
     hamsters_out_file.close()
