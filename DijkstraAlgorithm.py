@@ -10,10 +10,10 @@ class Graph:
     def min_distance(self, distances_list, visited_list):
         min_distance = sys.maxsize
 
-        for v in range(self.num_of_vertices):
-            if distances_list[v] < min_distance and visited_list[v] is False:
-                min_distance = distances_list[v]
-                min_index = v
+        for vertex_number in range(self.num_of_vertices):
+            if distances_list[vertex_number] < min_distance and visited_list[vertex_number] is False:
+                min_distance = distances_list[vertex_number]
+                min_index = vertex_number
         return min_index
 
     def dijkstra_search(self, starting_vertex):
