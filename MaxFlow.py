@@ -20,7 +20,7 @@ class Graph:
                     parents_list[vertex_number] = current_vertex
         return True if visited_vertices[vertex_to_find] else False
 
-    def find_max_flow(self, input_source, input_sink):
+    def find_max_flow(self, input_source: int, input_sink: int):
         parents_list = [-1] * self.num_of_vertices
         max_flow = 0
 
