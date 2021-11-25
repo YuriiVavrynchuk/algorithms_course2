@@ -1,8 +1,9 @@
 import unittest
 
+import DijkstraAlgorithm
 import HeapSort
+import MaxFlow
 from BinarySearchTree import *
-from DijkstraAlgorithm import *
 
 
 class TestHeapSort(unittest.TestCase):
@@ -22,6 +23,23 @@ class TestHeapSort(unittest.TestCase):
                               [8, 11, 0, 0, 0, 0, 1, 0, 7],
                               [0, 0, 2, 0, 0, 0, 6, 7, 0]]
         self.starting_vertex = 0
+        self.benchmark_distances_array = [0, 4, 12, 19, 21, 11, 9, 8, 14]
+
+        self.directed_vertex_matrix = [[0, 8, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0],
+                                       [0, 0, 9, 0, 0, 0, 0, 0, 5, 0, 0, 0],
+                                       [0, 0, 0, 0, 7, 2, 0, 7, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0],
+                                       [0, 0, 7, 4, 0, 0, 0, 0, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+                                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 3],
+                                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 42],
+                                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0],
+                                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5],
+                                       [0, 0, 0, 0, 0, 0, 0, 0, 42, 0, 0, 0]]
+        self.max_flow_source = 4
+        self.max_flow_sink = 11
+        self.benchmark_max_flow = 8
 
     def test_sorting(self):
         HeapSort.args.sorting_array = self.unsorted_array
@@ -65,11 +83,15 @@ class TestHeapSort(unittest.TestCase):
         self.assertEqual(binary_search_tree.root.right.data, 7)
 
     def test_dijkstra_algorithm_test(self):
-        graph = Graph(len(self.vertex_matrix))
+        graph = DijkstraAlgorithm.Graph(len(self.vertex_matrix))
         graph.vertices_matrix = self.vertex_matrix
         distances_list = graph.dijkstra_search(self.starting_vertex)
-        benchmark_distances_array = [0, 4, 12, 19, 21, 11, 9, 8, 14]
-        self.assertEqual(distances_list, benchmark_distances_array)
+        self.assertEqual(distances_list, self.benchmark_distances_array)
+
+    def test_max_flow(self):
+        directed_graph = MaxFlow.Graph(self.directed_vertex_matrix)
+        max_flow = directed_graph.find_max_flow(self.max_flow_source, self.max_flow_sink)
+        self.assertEqual(max_flow, self.benchmark_max_flow)
 
 
 if __name__ == "__main__":
