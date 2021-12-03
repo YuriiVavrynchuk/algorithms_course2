@@ -3,7 +3,9 @@ import unittest
 import DijkstraAlgorithm
 import HeapSort
 import MaxFlow
+import RabinKarpSearch
 from BinarySearchTree import *
+from RabinKarpSearch import *
 
 
 class TestHeapSort(unittest.TestCase):
@@ -40,6 +42,11 @@ class TestHeapSort(unittest.TestCase):
         self.max_flow_source = 4
         self.max_flow_sink = 11
         self.benchmark_max_flow = 8
+
+        self.test_text = "AAA NN MM LL K AA"
+        self.test_pattern = "AA"
+        self.test_primary_number = 101
+        self.benchmark_positions_array = [0, 1, 15]
 
     def test_sorting(self):
         HeapSort.args.sorting_array = self.unsorted_array
@@ -92,6 +99,11 @@ class TestHeapSort(unittest.TestCase):
         directed_graph = MaxFlow.Graph(self.directed_vertex_matrix)
         max_flow = directed_graph.find_max_flow(self.max_flow_source, self.max_flow_sink)
         self.assertEqual(max_flow, self.benchmark_max_flow)
+
+    def test_rabin_karp_search(self):
+        testing_pattern_positions = RabinKarpSearch.rabin_karp_search(self.test_text, self.test_pattern,
+                                                                      self.test_primary_number)
+        self.assertEqual(testing_pattern_positions, self.benchmark_positions_array)
 
 
 if __name__ == "__main__":
